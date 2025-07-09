@@ -1,5 +1,8 @@
 package com.manibala.application.groq.api.config;
 
+import com.manibala.framework.encrypt.Crypt;
+import com.manibala.framework.util.ActorUtils;
+import com.manibala.framework.util.LogUtils;
 import lombok.extern.slf4j.Slf4j;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -34,10 +37,10 @@ public class ConfigProperties {
 
     public static String getGroqBearerToken() {
         config = readConfigProperties();
-        String key = "groq_bearer_token";
+        String key = "groq_btk";
         String keySysProp = System.getProperty(key);
         String output = (keySysProp!=null && keySysProp.length()>0) ? keySysProp : config.getProperty(key);
-        output = output==null ? "" : output;
+        output = output==null ? "" : new Crypt().perform().decode(output);
         log.info("Info : Get config properties : " + key + " = "+output);
         return output;
     }
