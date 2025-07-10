@@ -32,13 +32,25 @@ public class EnvironmentProperties {
         return env;
     }
 
-    public static String getApiEngine() {
-        String key = "api_engine";
+    public static void setProperty(String key, String value) {
+        System.setProperty(key, value);
+    }
+
+    public static String getProperty(String key) {
+        env = readConfigProperties();
         String keySysProp = System.getProperty(key);
         String output = (keySysProp!=null && keySysProp.length()>0) ? keySysProp : env.getProperty(key);
         output = output==null ? "" : output;
         log.info("Info : Get config properties : " + key + " = "+output);
         return output;
+    }
+
+    public static String getEnvironment() {
+        return getProperty("environment");
+    }
+
+    public static String getApiEngine() {
+        return getProperty("api_engine");
     }
 
 }

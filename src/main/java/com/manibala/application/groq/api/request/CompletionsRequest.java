@@ -17,7 +17,7 @@ public class CompletionsRequest implements Task {
 
     @Override
     @Step("API - Groq Chat Completions")
-    public <T extends Actor> void performAs(T Actor) {
+    public <T extends Actor> void performAs(T actor) {
         ApiPojo apiPojo = ClonePojo.apiPojo();
         apiPojo.setActor(completionsData.getActor());
         apiPojo.setApiName(new Service().endpoint.get("GROQ_CHAT_COMPLETIONS").get(0));

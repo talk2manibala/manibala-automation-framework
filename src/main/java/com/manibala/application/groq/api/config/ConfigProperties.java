@@ -35,23 +35,58 @@ public class ConfigProperties {
         return config;
     }
 
-    public static String getGroqBearerToken() {
-        config = readConfigProperties();
-        String key = "groq_btk";
-        String keySysProp = System.getProperty(key);
-        String output = (keySysProp!=null && keySysProp.length()>0) ? keySysProp : config.getProperty(key);
-        output = output==null ? "" : new Crypt().perform().decode(output);
-        log.info("Info : Get config properties : " + key + " = "+output);
-        return output;
+    public static void setProperty(String key, String value) {
+        System.setProperty(key, value);
     }
 
-    public static String getTestDataPath() {
+    public static String getProperty(String key) {
         config = readConfigProperties();
-        String key = "test_data_path";
         String keySysProp = System.getProperty(key);
         String output = (keySysProp!=null && keySysProp.length()>0) ? keySysProp : config.getProperty(key);
         output = output==null ? "" : output;
         log.info("Info : Get config properties : " + key + " = "+output);
         return output;
     }
+
+    public static String getGroqBearerToken() {
+        return getProperty("groq_btk");
+    }
+
+    public static String getTestDataPath() {
+        return getProperty("test_data_path");
+    }
+
+    public static String getRfamDbUsername() {
+        return getProperty(EnvironmentProperties.getEnvironment()+"_rfam_db_username");
+    }
+
+    public static String getRfamDbPassword() {
+        return getProperty(EnvironmentProperties.getEnvironment()+"_rfam_db_password");
+    }
+
+    public static String getRfamDbServer() {
+        return getProperty(EnvironmentProperties.getEnvironment()+"_rfam_db_server");
+    }
+
+    public static String getRfamDatabase() {
+        return getProperty(EnvironmentProperties.getEnvironment()+"_rfam_db_name");
+    }
+
+    public static String getRfamDbPort() {
+        return getProperty(EnvironmentProperties.getEnvironment()+"_rfam_db_port");
+    }
+
+    public static String getSslFlag() {
+        return getProperty("rfam_ssl_config");
+    }
+
+    public static String getRfamDbConnector() {
+        return getProperty("rfam_db_connector");
+    }
+
+    public static String getRfamDbDriver() {
+        return getProperty("rfam_db_driver");
+    }
+
+
 }

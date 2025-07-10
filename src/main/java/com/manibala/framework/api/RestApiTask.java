@@ -2,6 +2,7 @@ package com.manibala.framework.api;
 
 import com.manibala.framework.asserts.AssertQn;
 import com.manibala.framework.constants.MatchersKey;
+import com.manibala.framework.encrypt.Crypt;
 import com.manibala.framework.util.ListUtils;
 import com.manibala.framework.util.LogUtils;
 import io.restassured.http.ContentType;
@@ -228,7 +229,7 @@ public class RestApiTask implements ApiTask {
                             requestSpecification = requestSpecification.auth().basic(apiPojo.getAuthKey(), apiPojo.getAuthValue());
                         }
                         if (apiPojo.getBearerToken()!=null) {
-                            requestSpecification = requestSpecification.auth().oauth2(apiPojo.getBearerToken());
+                            requestSpecification = requestSpecification.auth().oauth2(new Crypt().perform().decode(apiPojo.getBearerToken()));
                         }
                         if (apiPojo.getPathParam()!=null) {
                             requestSpecification = requestSpecification.pathParams(apiPojo.getPathParam());
