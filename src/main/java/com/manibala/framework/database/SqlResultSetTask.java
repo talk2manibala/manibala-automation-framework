@@ -51,14 +51,13 @@ public class SqlResultSetTask implements Task {
                 LogUtils.fail(actor, "Issue in capture the resultSet : "+e.getMessage());
             }
         }
-        if (dbPojo.getQueryFlag().equals("SINGLE")) {
+        if (dbPojo.getQueryFlag().contains("SINGLE")) {
             try {
-                dbPojo.getResultSet().next();
                 dbPojo.getResultSet().first();
                 String output = dbPojo.getResultSet().getString(1);
+                LogUtils.with(actor, "OUTPUT : "+output);
                 dbPojo.setResultStr(output);
                 output = (output==null) ? "null" : output;
-                LogUtils.with(actor, output);
             } catch (Exception e) {
                 LogUtils.fail(actor, "Error at Database.getSingleResultForQuery - "+e);
             } finally {

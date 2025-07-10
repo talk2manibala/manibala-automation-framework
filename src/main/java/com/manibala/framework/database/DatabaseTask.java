@@ -2,6 +2,7 @@ package com.manibala.framework.database;
 
 import com.manibala.application.groq.api.config.ConfigProperties;
 import com.manibala.framework.api.ApiPojo;
+import com.manibala.framework.encrypt.Crypt;
 import com.manibala.framework.util.LogUtils;
 import com.manibala.framework.util.RegexUtil;
 import net.serenitybdd.annotations.Step;
@@ -18,15 +19,16 @@ public class DatabaseTask implements Task {
     @Override
     @Step("Query - #application - #tableName")
     public <T extends Actor> void performAs(T actor) {
-        dbPojo.setSslFlag(ConfigProperties.getSslFlag().contains("yes") ? "REQUIRED" : "DISABLED");
-        if (dbPojo.getDbApplication().contains("rfam")) {
+        dbPojo.setSslFlag(ConfigProperties.getSslFlag().contains("yes") ? "true" : "false");
+        if (dbPojo.getDbApplication().toLowerCase().contains("rfam")) {
             dbPojo.setDbConnector(ConfigProperties.getRfamDbConnector());
             dbPojo.setDbServer(ConfigProperties.getRfamDbServer());
             dbPojo.setDbName(ConfigProperties.getRfamDatabase());
+            dbPojo.setDbPort(ConfigProperties.getRfamDbPort());
             dbPojo.setDbUsername(ConfigProperties.getRfamDbUsername());
             dbPojo.setDbPassword(ConfigProperties.getRfamDbPassword());
             dbPojo.setDbDriver(ConfigProperties.getRfamDbDriver());
-            dbPojo.setDbUrl(dbPojo.getDbConnector() + dbPojo.getDbServer() + ":" + dbPojo.getDbName());
+            dbPojo.setDbUrl(dbPojo.getDbConnector() + new Crypt().perform().decode(dbPojo.getDbServer()) + ":" + dbPojo.getDbPort() + "/" + new Crypt().perform().decode(dbPojo.getDbName())+"?useSSL="+dbPojo.getSslFlag()+"&serverTimezone=UTC");
         }
         try {
             Class.forName(dbPojo.getDbDriver());

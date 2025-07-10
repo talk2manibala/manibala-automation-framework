@@ -15,7 +15,7 @@ public class ExecuteQueryTask implements Task {
     DbPojo dbPojo;
 
     @Override
-    @Step("Execute dbPojo.getDbQuery() for #flag")
+    @Step("Execute the query")
     public <T extends Actor> void performAs(T actor) {
         boolean isQuerySuccess = true;
         Connection connection = null;
@@ -26,12 +26,14 @@ public class ExecuteQueryTask implements Task {
             Statement stmt = null;
             try {
                 LogUtils.with(actor, dbPojo.getDbQuery());
-                if (dbPojo.getDbQuery().toLowerCase().matches("\\s*.select.*")) {
-                    stmt = connection.createStatement();
+                if (dbPojo.getDbQuery().toLowerCase().startsWith("select") || dbPojo.getDbQuery().toLowerCase().matches("\\s*.select.*")) {
+                    stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                            ResultSet.CONCUR_READ_ONLY);
                     dbPojo.setStatement(stmt);
                     dbPojo.setResultSet(stmt.executeQuery(dbPojo.getDbQuery()));
-                    if (dbPojo.getResultSetFlag().equals("RESULT"))
+                    if (dbPojo.getResultSetFlag().equals("RESULT")) {
                         SqlResultSetTask.get(dbPojo);
+                    }
                 }
                 if (dbPojo.getDbQuery().toLowerCase().matches("\\s*update.*|\\s*delete.*|\\s*insert.*")) {
                     stmt = connection.createStatement();
@@ -42,6 +44,7 @@ public class ExecuteQueryTask implements Task {
             } catch (Exception e) {
                 isTrue=false;
                 errorMsg = e.getMessage();
+                LogUtils.fail(actor, "Issue in executing the query - "+e.getMessage());
             } finally {
                 if (stmt!=null) {
                     try {

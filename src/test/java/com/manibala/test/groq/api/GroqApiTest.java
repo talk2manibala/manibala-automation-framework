@@ -8,12 +8,11 @@ import com.manibala.framework.encrypt.Crypt;
 import com.manibala.framework.util.ActorUtils;
 import net.serenitybdd.annotations.Title;
 import net.serenitybdd.junit5.SerenityJUnit5Extension;
-import net.serenitybdd.screenplay.Actor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(SerenityJUnit5Extension.class)
-public class GroqTest {
+public class GroqApiTest {
 
     @Test
     @Title("API Groq Chat Completions")
@@ -25,9 +24,12 @@ public class GroqTest {
 
     @Test
     public void test1() {
-        /*new Crypt().perform().encode(ConfigProperties.get());
-        new Crypt().perform().encode(ConfigProperties.getDbUsername());
-        new Crypt().perform().encode(ConfigProperties.getDbPassword());*/
+        String u = new Crypt().perform().encode(ConfigProperties.getRfamDbServer());
+        String p = new Crypt().perform().encode(ConfigProperties.getRfamDatabase());
+        System.out.println(u);
+        System.out.println(p);
+        System.out.println(new Crypt().perform().decode(u));
+        System.out.println(new Crypt().perform().decode(p));
     }
 
 }
