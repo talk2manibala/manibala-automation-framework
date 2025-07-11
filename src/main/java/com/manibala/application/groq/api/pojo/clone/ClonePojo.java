@@ -3,6 +3,7 @@ package com.manibala.application.groq.api.pojo.clone;
 import com.manibala.application.groq.api.data.CompletionsDataPojo;
 import com.manibala.framework.api.ApiPojo;
 import com.manibala.framework.database.DbPojo;
+import com.manibala.framework.ui.UiPojo;
 import io.cucumber.java.bs.A;
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -16,6 +17,11 @@ public class ClonePojo {
     public static DbPojo dbPojo() {
         DbPojo dbPojo = new DbPojo();
         return SerializationUtils.clone(dbPojo);
+    }
+
+    public static UiPojo uiPojo() {
+        UiPojo uiPojo = new UiPojo();
+        return SerializationUtils.clone(uiPojo);
     }
 
     public static CompletionsDataPojo completionsDataPojo(String tcId) {
