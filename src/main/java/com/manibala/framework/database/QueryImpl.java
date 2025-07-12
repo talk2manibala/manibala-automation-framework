@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 
-public class QueryImpl implements Query {
+class QueryImpl implements Query {
 
     private static ResultSet getResultSet(DbPojo dbPojo) {
         dbPojo.setResultSetFlag("RESULT_SET");

@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import static net.serenitybdd.screenplay.GivenWhenThen.when;
 
-public class RestApiTask implements ApiTask {
+class RestApiTask implements ApiTask {
 
     @Override
     public ApiTask validateStatusCode(ApiPojo apiPojo) {

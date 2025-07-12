@@ -88,16 +88,16 @@ public class ConfigProperties {
         return getProperty("rfam_db_driver");
     }
 
-    public static String getIrctcUiUrl() {
-        return getProperty(EnvironmentProperties.getEnvironment()+"_irctc_ui_url");
+    public static String getWebsiteUiUrl() {
+        return getProperty(EnvironmentProperties.getEnvironment()+"_website_ui_url");
     }
 
-    public static String getIrctcUiUsername() {
-        return getProperty(EnvironmentProperties.getEnvironment()+"_irctc_ui_username");
+    public static String getWebsiteUiUsername() {
+        return getProperty(EnvironmentProperties.getEnvironment()+"_website_ui_username");
     }
 
-    public static String getIrctcUiPassword() {
-        return getProperty(EnvironmentProperties.getEnvironment()+"_irctc_ui_password");
+    public static String getWebsiteUiPassword() {
+        return getProperty(EnvironmentProperties.getEnvironment()+"_website_ui_password");
     }
 
 }
