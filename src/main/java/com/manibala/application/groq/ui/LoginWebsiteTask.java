@@ -1,10 +1,9 @@
 package com.manibala.application.groq.ui;
 
 import com.manibala.application.groq.api.config.ConfigProperties;
-import com.manibala.framework.ui.CloseBrowserTask;
-import com.manibala.framework.ui.ClickTargetTask;
-import com.manibala.framework.ui.TypeTask;
+import com.manibala.framework.constants.WaitCondition;
 import com.manibala.framework.ui.UiFactory;
+import com.manibala.framework.ui.WaitTask;
 import com.manibala.framework.util.LogUtils;
 import net.serenitybdd.annotations.Step;
 import net.serenitybdd.screenplay.Actor;
@@ -19,9 +18,12 @@ public class LoginWebsiteTask implements Task {
         try {
             new UiFactory().perform()
                 .openApplication(actor, ConfigProperties.getWebsiteUiUrl(), WebsiteLocators.USERNAME_TXT)
+                .wait(actor, WebsiteLocators.USERNAME_TXT, WaitCondition.VISIBLE)
                 .type(actor, WebsiteLocators.USERNAME_TXT, ConfigProperties.getWebsiteUiUsername())
                 .type(actor, WebsiteLocators.PASSWORD_TXT, ConfigProperties.getWebsiteUiPassword())
-                .click(actor, WebsiteLocators.LOGIN_BTN);
+                .click(actor, WebsiteLocators.LOGIN_BTN)
+                .zoomOut(actor, 60);
+            LogUtils.with(actor, new UiFactory().perform().getText(actor, WebsiteLocators.USERNAME_TXT));
         } catch (Exception e) {
             LogUtils.with(actor, "Issue at Website Login - " + e);
         }

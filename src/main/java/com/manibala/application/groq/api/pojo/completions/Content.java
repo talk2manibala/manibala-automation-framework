@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.manibala.application.groq.api.data.CompletionsDataPojo;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @JsonPropertyOrder({
         "type",
         "text",

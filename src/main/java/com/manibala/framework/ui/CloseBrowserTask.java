@@ -1,12 +1,10 @@
 package com.manibala.framework.ui;
 
 import com.manibala.framework.util.LogUtils;
-import net.serenitybdd.annotations.Managed;
 import net.serenitybdd.annotations.Step;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
-import org.openqa.selenium.WebDriver;
 
 public class CloseBrowserTask implements Task {
 

@@ -1,7 +1,6 @@
 package com.manibala.framework.database;
 
 import com.manibala.application.groq.api.pojo.clone.ClonePojo;
-import com.manibala.framework.api.ApiPojo;
 import com.manibala.framework.util.LogUtils;
 import net.serenitybdd.screenplay.Actor;
 

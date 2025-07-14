@@ -1,6 +1,5 @@
 package com.manibala.framework.ui;
 
-import com.manibala.application.groq.api.pojo.clone.ClonePojo;
 import com.manibala.framework.util.LogUtils;
 import net.serenitybdd.annotations.Managed;
 import net.serenitybdd.annotations.Step;
@@ -9,7 +8,6 @@ import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.serenitybdd.screenplay.actions.Open;
-import net.serenitybdd.screenplay.targets.Target;
 import org.openqa.selenium.WebDriver;
 
 public class OpenApplicationTask implements Task {

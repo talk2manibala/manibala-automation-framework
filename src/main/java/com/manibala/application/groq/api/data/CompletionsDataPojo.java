@@ -4,6 +4,7 @@ import com.manibala.framework.data.TestData;
 import io.restassured.response.Response;
 import lombok.Data;
 import net.serenitybdd.screenplay.Actor;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;

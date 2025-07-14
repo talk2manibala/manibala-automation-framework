@@ -1,17 +1,13 @@
 package com.manibala.framework.database;
 
-import com.manibala.framework.encrypt.Crypt;
 import com.manibala.framework.util.LogUtils;
-import com.manibala.framework.util.SerenityUtil;
 import net.serenitybdd.annotations.Step;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 public class DisconnectSqlDbTask implements Task {
 

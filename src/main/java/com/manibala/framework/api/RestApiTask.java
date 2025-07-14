@@ -17,9 +17,11 @@ import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
 import net.serenitybdd.screenplay.rest.interactions.Get;
 import net.serenitybdd.screenplay.rest.interactions.Post;
 import org.apache.commons.math3.util.Precision;
+
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+
 import static net.serenitybdd.screenplay.GivenWhenThen.when;
 
 class RestApiTask implements ApiTask {

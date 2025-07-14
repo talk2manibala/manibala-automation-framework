@@ -1,17 +1,13 @@
 package com.manibala.framework.ui;
 
-import com.manibala.application.groq.api.pojo.clone.ClonePojo;
 import com.manibala.framework.util.LogUtils;
 import net.serenitybdd.annotations.Managed;
 import net.serenitybdd.annotations.Step;
-import net.serenitybdd.core.Serenity;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
-import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.serenitybdd.screenplay.actions.Enter;
-import net.serenitybdd.screenplay.actions.Open;
-import net.serenitybdd.screenplay.targets.Target;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 public class TypeTask implements Task {
@@ -25,7 +21,19 @@ public class TypeTask implements Task {
     @Step("#flag")
     public <T extends Actor> void performAs(T actor) {
         try {
-            actor.attemptsTo(Enter.theValue(uiPojo.getInputTxt()).into(uiPojo.getTarget()));
+            if (uiPojo.getTarget()!=null) {
+                if (uiPojo.getUiFlag().contains("clear"))
+                    uiPojo.getTarget().resolveFor(actor).clear();
+                actor.attemptsTo(Enter.theValue(uiPojo.getInputTxt()).into(uiPojo.getTarget()));
+                if (uiPojo.getUiFlag().contains("enter"))
+                    uiPojo.getTarget().resolveFor(actor).sendKeys(Keys.ENTER);
+            } else {
+                if (uiPojo.getUiFlag().contains("clear"))
+                    uiPojo.getElementFacade().clear();
+                uiPojo.getElementFacade().type(uiPojo.getInputTxt());
+                if (uiPojo.getUiFlag().contains("enter"))
+                    uiPojo.getElementFacade().sendKeys(Keys.ENTER);
+            }
         } catch (Exception e) {
             LogUtils.with(actor, "Error when typing text "+uiPojo.getInputTxt()+" on text box "+uiPojo.getTarget().getName());
         } finally {

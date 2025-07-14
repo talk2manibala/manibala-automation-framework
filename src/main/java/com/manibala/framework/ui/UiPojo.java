@@ -6,6 +6,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.targets.Target;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class UiPojo implements Serializable {
     private String application;
     private String url;
+    private String uiFlag;
     private String openOrCloseApplication;
     private String username;
     private String password;
@@ -25,9 +27,13 @@ public class UiPojo implements Serializable {
     private String inputTxt;
     private String actualTxt;
     private String expectedTxt;
+    private String waitCondition;
+    private int zoomPercent;
     private boolean isVisible;
     private boolean isDisplayed;
     private boolean isEnabled;
     private boolean isSelected;
+    private boolean isJavaScriptExecutorRequired;
+    private boolean isClearRequired;
     private List<String> dropdownValues;
 }
