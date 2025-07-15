@@ -31,6 +31,11 @@ public interface UiTask {
     UiTask wait(Actor actor, Target target, String waitCondition);
     UiTask wait(Actor actor, WebElementFacade elementFacade, String waitCondition);
 
+    UiTask moveToElement(Actor actor, Target target);
+    UiTask moveToElement(Actor actor, WebElementFacade elementFacade);
+
     UiTask zoomOut(Actor actor, int zoomOutPercent);
     UiTask switchToWindow(Actor actor, Target target, WebElementFacade elementFacade);
+
+    UiTask hardWait(Actor actor, int waitFor);
 }

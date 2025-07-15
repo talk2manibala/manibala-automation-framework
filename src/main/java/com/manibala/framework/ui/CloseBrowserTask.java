@@ -17,7 +17,7 @@ public class CloseBrowserTask implements Task {
         try {
             uiPojo.getDriver().close();
         } catch (Exception e) {
-            LogUtils.with(actor, "Error when open or close the browser - " + e);
+            LogUtils.fail(actor, "Failed when "+flag+" - "+e.getMessage());
         }
     }
 
@@ -27,6 +27,6 @@ public class CloseBrowserTask implements Task {
     }
 
     static CloseBrowserTask with(UiPojo uiPojo) {
-        return Tasks.instrumented(CloseBrowserTask.class, uiPojo, uiPojo.getOpenOrCloseApplication() +" : "+uiPojo.getUrl());
+        return Tasks.instrumented(CloseBrowserTask.class, uiPojo, "Close browser " + uiPojo.getElementName());
     }
 }

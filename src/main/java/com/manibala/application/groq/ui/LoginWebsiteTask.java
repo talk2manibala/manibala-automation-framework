@@ -22,8 +22,10 @@ public class LoginWebsiteTask implements Task {
                 .type(actor, WebsiteLocators.USERNAME_TXT, ConfigProperties.getWebsiteUiUsername())
                 .type(actor, WebsiteLocators.PASSWORD_TXT, ConfigProperties.getWebsiteUiPassword())
                 .click(actor, WebsiteLocators.LOGIN_BTN)
-                .zoomOut(actor, 60);
-            LogUtils.with(actor, new UiFactory().perform().getText(actor, WebsiteLocators.USERNAME_TXT));
+                .zoomOut(actor, 60)
+                .moveToElement(actor, WebsiteLocators.SIGN_UP_BTN)
+                .hardWait(actor, 10)
+                .getText(actor, WebsiteLocators.USERNAME_TXT);
         } catch (Exception e) {
             LogUtils.with(actor, "Issue at Website Login - " + e);
         }

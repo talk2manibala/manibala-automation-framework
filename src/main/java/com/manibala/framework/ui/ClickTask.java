@@ -34,7 +34,7 @@ public class ClickTask implements Task {
                     js.executeScript(uiPojo.getElementFacade()+".click()");
             }
         } catch (Exception e) {
-            LogUtils.with(actor, "Error when click on "+uiPojo.getTarget().getName());
+            LogUtils.fail(actor, "Failed when "+flag+" - "+e.getMessage());
         } finally {
             new UiFactory().perform().screenshot(actor);
         }
@@ -47,6 +47,6 @@ public class ClickTask implements Task {
     }
 
     static ClickTask on(UiPojo uiPojo) {
-        return Tasks.instrumented(ClickTask.class, uiPojo, "Click on "+uiPojo.getTarget().getName());
+        return Tasks.instrumented(ClickTask.class, uiPojo, "Click on "+uiPojo.getElementName());
     }
 }

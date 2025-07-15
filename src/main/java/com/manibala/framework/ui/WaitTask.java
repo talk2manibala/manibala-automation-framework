@@ -71,7 +71,7 @@ public class WaitTask implements Task {
                 }
             }
         } catch (Exception e) {
-            LogUtils.with(actor, "Error when open or close the browser - " + e);
+            LogUtils.fail(actor, "Failed when "+flag+" - "+e.getMessage());
         }
     }
 
@@ -81,7 +81,6 @@ public class WaitTask implements Task {
     }
 
     static WaitTask with(UiPojo uiPojo) {
-        String name = (uiPojo.getTarget()!=null) ? uiPojo.getTarget().getName() : uiPojo.getElementFacade().toString();
-        return Tasks.instrumented(WaitTask.class, uiPojo, "Wait for "+name);
+        return Tasks.instrumented(WaitTask.class, uiPojo, "Wait for "+uiPojo.getElementName());
     }
 }

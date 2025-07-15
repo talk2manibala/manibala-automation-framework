@@ -39,7 +39,7 @@ public class WindowsTask implements Task {
                 }
             }
         } catch (Exception e) {
-            LogUtils.with(actor, "Error when switching to window - " + e);
+            LogUtils.fail(actor, "Failed when "+flag+" - "+e.getMessage());
         }
     }
 

@@ -35,7 +35,7 @@ public class TypeTask implements Task {
                     uiPojo.getElementFacade().sendKeys(Keys.ENTER);
             }
         } catch (Exception e) {
-            LogUtils.with(actor, "Error when typing text "+uiPojo.getInputTxt()+" on text box "+uiPojo.getTarget().getName());
+            LogUtils.fail(actor, "Failed when "+flag+" - "+e.getMessage());
         } finally {
             new UiFactory().perform().screenshot(actor);
         }
@@ -47,6 +47,6 @@ public class TypeTask implements Task {
     }
 
     static TypeTask with(UiPojo uiPojo) {
-        return Tasks.instrumented(TypeTask.class, uiPojo, "Enter "+uiPojo.getInputTxt() +" on textbox "+uiPojo.getTarget().getName());
+        return Tasks.instrumented(TypeTask.class, uiPojo, "Enter "+uiPojo.getInputTxt() +" on textbox "+uiPojo.getElementName());
     }
 }

@@ -38,7 +38,7 @@ public class OpenApplicationTask implements Task {
             }
 
         } catch (Exception e) {
-            LogUtils.with(actor, "Error when open or close the browser - " + e);
+            LogUtils.fail(actor, "Failed when "+flag+" - "+e.getMessage());
         }
     }
 
@@ -48,6 +48,6 @@ public class OpenApplicationTask implements Task {
     }
 
     static OpenApplicationTask with(UiPojo uiPojo) {
-        return Tasks.instrumented(OpenApplicationTask.class, uiPojo, uiPojo.getOpenOrCloseApplication() + " : " + uiPojo.getUrl());
+        return Tasks.instrumented(OpenApplicationTask.class, uiPojo, "Open application " + uiPojo.getUrl());
     }
 }

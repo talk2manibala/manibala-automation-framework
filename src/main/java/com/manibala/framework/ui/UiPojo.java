@@ -18,6 +18,7 @@ public class UiPojo implements Serializable {
     private String openOrCloseApplication;
     private String username;
     private String password;
+    private String elementName;
     private WebDriver driver;
     private Actor actor;
     private Target target;

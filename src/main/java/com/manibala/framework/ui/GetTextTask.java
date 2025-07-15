@@ -51,7 +51,7 @@ public class GetTextTask implements Task {
                 }
             }
         } catch (Exception e) {
-            LogUtils.with(actor, "Error when click on "+uiPojo.getTarget().getName());
+            LogUtils.fail(actor, "Failed when "+flag+" - "+e.getMessage());
         } finally {
             new UiFactory().perform().screenshot(actor);
         }
@@ -64,6 +64,6 @@ public class GetTextTask implements Task {
     }
 
     static GetTextTask on(UiPojo uiPojo) {
-        return Tasks.instrumented(GetTextTask.class, uiPojo, "Click on "+uiPojo.getTarget().getName());
+        return Tasks.instrumented(GetTextTask.class, uiPojo, "Get text "+uiPojo.getElementName());
     }
 }

@@ -6,9 +6,9 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.interactions.Actions;
 
-public class ZoomOutTask implements Task {
+public class MouseOverTask implements Task {
 
     UiPojo uiPojo;
     String flag;
@@ -17,20 +17,19 @@ public class ZoomOutTask implements Task {
     @Step("#flag")
     public <T extends Actor> void performAs(T actor) {
         try {
-            uiPojo.setZoomPercent(uiPojo.getZoomPercent()==0 ? 70 : uiPojo.getZoomPercent());
-            JavascriptExecutor js = (JavascriptExecutor) BrowseTheWeb.as(actor).getDriver();
-            js.executeScript("document.body.style.zoom='"+uiPojo.getZoomPercent()+"%'");
+            Actions actions = new Actions(BrowseTheWeb.as(actor).getDriver());
+            actions.moveToElement(uiPojo.getTarget().resolveFor(actor).getElement()).build().perform();
         } catch (Exception e) {
             LogUtils.fail(actor, "Failed when "+flag+" - "+e.getMessage());
         }
     }
 
-    public ZoomOutTask(UiPojo uiPojo, String flag) {
+    public MouseOverTask(UiPojo uiPojo, String flag) {
         this.uiPojo = uiPojo;
         this.flag = flag;
     }
 
-    static ZoomOutTask with(UiPojo uiPojo) {
-        return Tasks.instrumented(ZoomOutTask.class, uiPojo, "Zoom out to "+uiPojo.getZoomPercent()+"%");
+    static MouseOverTask with(UiPojo uiPojo) {
+        return Tasks.instrumented(MouseOverTask.class, uiPojo, "Mouse over "+uiPojo.getElementName());
     }
 }

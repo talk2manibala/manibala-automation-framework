@@ -1,6 +1,7 @@
 package com.manibala.framework.ui;
 
 import com.manibala.application.groq.api.pojo.clone.ClonePojo;
+import com.manibala.framework.util.LoadingUtils;
 import com.manibala.framework.util.LogUtils;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -8,6 +9,12 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.targets.Target;
 
 class UiImpl implements UiTask {
+
+    private String getElementName(UiPojo uiPojo) {
+        String name = (uiPojo.getTarget()!=null) ? uiPojo.getTarget().getName() : uiPojo.getElementFacade().toString();
+        uiPojo.setElementName(name);
+        return name;
+    }
 
     public UiTask screenshot(Actor actor) {
         try {
@@ -25,6 +32,7 @@ class UiImpl implements UiTask {
         uiPojo.setUrl(url == null ? "" : url);
         uiPojo.setOpenOrCloseApplication("Open the application");
         uiPojo.setTarget(target);
+		getElementName(uiPojo);
         actor.attemptsTo(OpenApplicationTask.with(uiPojo));
         return new UiImpl();
     }
@@ -59,6 +67,7 @@ class UiImpl implements UiTask {
         uiPojo.setActor(actor);
         uiPojo.setJavaScriptExecutorRequired(isJavaScriptExecutor);
         uiPojo.setTarget(target);
+		getElementName(uiPojo);
         uiPojo.setElementFacade(elementFacade);
         actor.attemptsTo(ClickTask.on(uiPojo));
         return new UiImpl();
@@ -106,6 +115,7 @@ class UiImpl implements UiTask {
 
         if (target != null) {
             uiPojo.setTarget(target);
+		getElementName(uiPojo);
         }
 
         if (elementFacade != null) {
@@ -128,6 +138,7 @@ class UiImpl implements UiTask {
         UiPojo uiPojo = ClonePojo.uiPojo();
         uiPojo.setActor(actor);
         uiPojo.setTarget(target);
+		getElementName(uiPojo);
         uiPojo.setElementFacade(elementFacade);
         actor.attemptsTo(GetTextTask.on(uiPojo));
         return uiPojo.getActualTxt();
@@ -145,6 +156,7 @@ class UiImpl implements UiTask {
         UiPojo uiPojo = ClonePojo.uiPojo();
         uiPojo.setActor(actor);
         uiPojo.setTarget(target);
+		getElementName(uiPojo);
         uiPojo.setElementFacade(elementFacade);
         uiPojo.setWaitCondition(waitCondition);
         actor.attemptsTo(WaitTask.with(uiPojo));
@@ -163,8 +175,32 @@ class UiImpl implements UiTask {
         UiPojo uiPojo = ClonePojo.uiPojo();
         uiPojo.setActor(actor);
         uiPojo.setTarget(target);
+		getElementName(uiPojo);
         uiPojo.setElementFacade(elementFacade);
         actor.attemptsTo(WindowsTask.with(uiPojo));
+        return new UiImpl();
+    }
+
+    public UiTask moveToElement(Actor actor, Target target) {
+        return moveToElement(actor, target, null);
+    }
+
+    public UiTask moveToElement(Actor actor, WebElementFacade elementFacade) {
+        return moveToElement(actor, null, elementFacade);
+    }
+
+    private UiTask moveToElement(Actor actor, Target target, WebElementFacade elementFacade) {
+        UiPojo uiPojo = ClonePojo.uiPojo();
+        uiPojo.setActor(actor);
+        uiPojo.setTarget(target);
+        getElementName(uiPojo);
+        uiPojo.setElementFacade(elementFacade);
+        actor.attemptsTo(MouseOverTask.with(uiPojo));
+        return new UiImpl();
+    }
+
+    public UiTask hardWait(Actor actor, int waitFor) {
+        LoadingUtils.waitFor(actor, waitFor);
         return new UiImpl();
     }
 }
