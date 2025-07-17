@@ -98,4 +98,15 @@ public class ConfigProperties {
         return getProperty(EnvironmentProperties.getEnvironment()+"_website_ui_password");
     }
 
+    public static String getKafkaBootStrap() {
+        return getProperty(EnvironmentProperties.getEnvironment()+"_kafka_bootstrap");
+    }
+
+    public static String getKafkaTopic() {
+        return getProperty(EnvironmentProperties.getEnvironment()+"_kafka_topic");
+    }
+
+    public static String getKafkaConsumerGroup() {
+        return getProperty(EnvironmentProperties.getEnvironment()+"_kafka_consumer_group");
+    }
 }

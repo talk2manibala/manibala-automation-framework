@@ -1,5 +1,6 @@
 package com.manibala.framework.database;
 
+import com.manibala.framework.question.JsonCompareQn;
 import com.manibala.framework.util.JsonUtils;
 import com.manibala.framework.util.LogUtils;
 import com.manibala.framework.util.SerenityUtil;
@@ -73,7 +74,7 @@ public class ResultSetComparator {
                     String value1 = String.valueOf(row1.get(key));
                     String value2 = String.valueOf(row2.get(key));
                     if (JsonUtils.isJsonString(value1) && JsonUtils.isJsonString(value2)) {
-                        boolean isTrue = new JsonUtils().compareJsonWithMismatchExpected(actor, key.toUpperCase() + " ==> " + message, value1, value2, IGNORE_FIELDS);
+                        boolean isTrue = new JsonCompareQn().compareJsonWithMismatchExpected(actor, key.toUpperCase() + " ==> " + message, value1, value2, IGNORE_FIELDS);
                         if (isTrue) continue;
                     }
                     if (!value1.equals(value2)) {
