@@ -109,4 +109,20 @@ public class ConfigProperties {
     public static String getKafkaConsumerGroup() {
         return getProperty(EnvironmentProperties.getEnvironment()+"_kafka_consumer_group");
     }
+
+    public static String getJiraUrl() {
+        return getProperty("jira_url");
+    }
+
+    public static String getJiraKey() {
+        return getProperty("jira_key");
+    }
+
+    public static String getJiraMail() {
+        return getProperty("jira_mail");
+    }
+
+    public static String getJiraAuth() {
+        return getProperty("jira_auth");
+    }
 }
